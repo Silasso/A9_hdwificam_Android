@@ -1,0 +1,14 @@
+{
+  "name": "native-gradle-node-project",
+  "version": "0.0.1",
+  "description": "node part of the project",
+  "main": "main.js",
+  "author": "janeasystems",
+  "license": "",
+  "dependencies": {
+    "dgram": "^1.0.1",
+    "fs": "^0.0.1-security",
+    "http": "^0.0.1-security",
+    "stream": "^0.0.2"
+  }
+}
