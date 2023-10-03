@@ -7,4 +7,6 @@
 /captures
 .externalNativeBuild
 /app/build
+/app/DOGA-prefix.apk
+/app/DOGC-prefix.apk
 *.so
