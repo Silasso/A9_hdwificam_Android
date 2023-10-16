@@ -51,48 +51,83 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        if( !_startedNodeAlready ) {
-            _startedNodeAlready=true;
-
-            nodejs = new Thread(new Runnable() {
-                @Override
-                public void run() {
-                    //The path where we expect the node project to be at runtime.
-                    String nodeDir=getApplicationContext().getFilesDir().getAbsolutePath()+"/nodejs-project";
-                    if (wasAPKUpdated()) {
-                        //Recursively delete any existing nodejs-project.
-                        File nodeDirReference=new File(nodeDir);
-                        if (nodeDirReference.exists()) {
-                            deleteFolderRecursively(new File(nodeDir));
-                        }
-                        //Copy the node project from assets into the application's data path.
-                        copyAssetFolder(getApplicationContext().getAssets(), "nodejs-project", nodeDir);
-
-                        saveLastUpdateTime();
-                    }
-                    startNodeWithArguments(new String[]{"node",
-                            nodeDir+"/run.js"
-                    });
-                }
-            });
-            nodejs.start();
-        }
-
-        final Button buttonVersions = (Button) findViewById(R.id.btVersions);
+        final Button btDGOF = (Button) findViewById(R.id.btDGOF);
+        final Button btDGOC = (Button) findViewById(R.id.btDGOC);
 
         webView = (WebView) findViewById(R.id.webview);
 
         webView.getSettings().setLoadWithOverviewMode(true);
         webView.getSettings().setUseWideViewPort(true);
 
-        buttonVersions.setOnClickListener(new View.OnClickListener() {
+        btDGOF.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
+                if( !_startedNodeAlready ) {
+                    _startedNodeAlready=true;
+
+                    nodejs = new Thread(new Runnable() {
+                        @Override
+                        public void run() {
+                            //The path where we expect the node project to be at runtime.
+                            String nodeDir=getApplicationContext().getFilesDir().getAbsolutePath()+"/nodejs-project";
+                            if (wasAPKUpdated()) {
+                                //Recursively delete any existing nodejs-project.
+                                File nodeDirReference=new File(nodeDir);
+                                if (nodeDirReference.exists()) {
+                                    deleteFolderRecursively(new File(nodeDir));
+                                }
+                                //Copy the node project from assets into the application's data path.
+                                copyAssetFolder(getApplicationContext().getAssets(), "nodejs-project", nodeDir);
+
+                                saveLastUpdateTime();
+                            }
+                            startNodeWithArguments(new String[]{"node",
+                                    nodeDir+"/run_DOGF.js"
+                            });
+                        }
+                    });
+                    nodejs.start();
+                }
+
                 if(_startedNodeAlready) {
                     webView.loadUrl("http://localhost:3000/v.mjpg"); // start
                 }
             }
         });
 
+        btDGOC.setOnClickListener(new View.OnClickListener() {
+            public void onClick(View v) {
+                if( !_startedNodeAlready ) {
+                    _startedNodeAlready=true;
+
+                    nodejs = new Thread(new Runnable() {
+                        @Override
+                        public void run() {
+                            //The path where we expect the node project to be at runtime.
+                            String nodeDir=getApplicationContext().getFilesDir().getAbsolutePath()+"/nodejs-project";
+                            if (wasAPKUpdated()) {
+                                //Recursively delete any existing nodejs-project.
+                                File nodeDirReference=new File(nodeDir);
+                                if (nodeDirReference.exists()) {
+                                    deleteFolderRecursively(new File(nodeDir));
+                                }
+                                //Copy the node project from assets into the application's data path.
+                                copyAssetFolder(getApplicationContext().getAssets(), "nodejs-project", nodeDir);
+
+                                saveLastUpdateTime();
+                            }
+                            startNodeWithArguments(new String[]{"node",
+                                    nodeDir+"/run.js"
+                            });
+                        }
+                    });
+                    nodejs.start();
+                }
+
+                if(_startedNodeAlready) {
+                    webView.loadUrl("http://localhost:3000/v.mjpg"); // start
+                }
+            }
+        });
     }
 
     /**
